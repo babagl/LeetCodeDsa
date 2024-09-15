@@ -62,3 +62,85 @@ function twoSomme(nums:number[], target: number){
     }
     return []
 }
+
+
+// add two numbers 
+class ListNode{
+    val: number;
+    next : ListNode | null;
+    constructor(val: number = 0,next : ListNode | null = null){
+        this.val = val
+        this.next = next
+    }
+}
+
+
+function addTwoSumNumbers(l1 : ListNode | null, l2: ListNode| null){
+    let dummyHead = new ListNode(0);
+    let p = l1 , q = l2 , curr = dummyHead;
+    let curry = 0;
+
+    while(p !== null || q !== null ){
+        let x = p !== null ? p.val : 0;
+        console.log("x",x);
+        
+        let y = q !== null ? q.val : 0;
+        console.log("x",y);
+        let sum = curry + x + y;
+        curry = Math.floor( sum / 10 );
+        console.log( "curry", curry );
+        
+        curr.next = new ListNode(sum % 10);
+        curr = curr.next;
+        console.log(" curr ", curr);
+        
+        if (p !== null ) {
+            p = p.next
+            console.log(" p ", p);
+            
+        }
+        if (q !== null) {
+            q = q.next
+            console.log(" q ", q);
+            
+        }
+    }
+    if (curry > 0) {
+        curr.next = new ListNode(curry);
+
+        console.log(" curry next +", curr.next);
+        
+    }
+
+    return dummyHead.next;
+}
+
+
+
+
+function lengthOfLongestSubstring(s: string){
+    const charMap: Map<string, number> = new Map()
+    let maxlen = 0;
+    let start = 0;
+    for(let i = 0 ; i< s.length; i++){
+        const char = s[i]
+        console.log("Char",char);
+        if (charMap.has(char) && charMap.get(char)! >= start) {
+            start = charMap.get(char)! + 1;
+            console.log(" start ",start);
+            
+
+        }
+        charMap.set(char ,i);
+        console.log("charMap",charMap);
+        maxlen = Math.max(maxlen, i- start + 1);
+    }
+
+    console.log("Maxlen + ", maxlen);
+    
+    return maxlen;
+}
+
+console.log("Lenght of letter");
+
+lengthOfLongestSubstring("baba galle");
